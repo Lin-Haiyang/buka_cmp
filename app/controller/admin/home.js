@@ -7,7 +7,7 @@ class LoginController extends Controller {
      if(userinfo!=null){
          this.ctx.body = "home main page === username:"+userinfo.staff_name;
      }else{
-         this.ctx.redirect("/admin/login")
+         this.ctx.redirect("/admin/login");
      }
   }
   
