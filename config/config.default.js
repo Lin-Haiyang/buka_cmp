@@ -1,5 +1,12 @@
 var config = {};
 config.keys = "123456";
+//中间件
+config.middleware=["adminauth"];
+config.adminauth={
+  enable:true,
+  match:"/admin"
+}
+
 //模板
 config.view = {
   defaultViewEngine: "nunjucks",
@@ -23,7 +30,7 @@ config.mongoose = {
     options: { useNewUrlParser: true },
   },
 };
-
+//session
 config.session = {
   key: "EGG_SESS",
   maxAge: 24 * 3600 * 1000, // 1 天
