@@ -1,6 +1,6 @@
 module.exports = options =>{
     return async(ctx,next) => {
-        console.log("middleware");
+        // console.log("middleware");
         var userinfo = ctx.session.userinfo;
         var pathname = ctx.request.path;
         // 配置全局变量

@@ -1,11 +1,10 @@
 const { Controller } = require("egg");
 const md5 = require("md5");
-var svgCaptcha = require("svg-captcha");
 class LoginController extends Controller {
   //显示登陆页面
   async index() {
     // await this.ctx.render("login", { _csrf: this.ctx.csrf });
-    await this.ctx.render("login");
+    await this.ctx.render("admin/login");
   }
   //表单数据处理
   async doLogin() {
@@ -21,14 +20,7 @@ class LoginController extends Controller {
     let password = md5(this.ctx.request.body.password);
     let code = this.ctx.request.body.code;
 
-    //生成一个账户
-    // var userModel = new this.ctx.model.User({
-    //   login_name: "admin",
-    //   login_pwd: "e10adc3949ba59abbe56e057f20f883e",
-    //   staff_name: "Less",
-    // });
-    // userModel.save();
-    // console.log("保存成功");
+   
     let captchaCode = this.ctx.session.code;
  
     if (code.toUpperCase()==captchaCode.toUpperCase()) {
@@ -55,12 +47,7 @@ class LoginController extends Controller {
   //验证码
   async verify() {
     //生成验证码
-    var captcha = svgCaptcha.create({
-      size: 4,
-      width: 100,
-      height: 30,
-      fontSize: 40,
-    });
+    var captcha = await this.ctx.service.tools.captcha();
     this.ctx.session.code = captcha.text;
     this.ctx.response.type = "image/svg+xml";
     this.ctx.body = captcha.data;

@@ -9,7 +9,7 @@ class LoginController extends Controller {
     //  }else{
     //      this.ctx.redirect("/admin/login");
     //  }
-    await this.ctx.render("home");
+    await this.ctx.render("admin/home");
   }
   
 }

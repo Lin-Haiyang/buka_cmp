@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  app.config.coreMiddleware.unshift('report');
+  // app.config.coreMiddleware.unshift('report');
 
   app.once("server", (server) => {
     app.logger.info("server is running..");
