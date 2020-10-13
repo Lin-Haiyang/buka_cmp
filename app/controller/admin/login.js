@@ -1,6 +1,6 @@
-const { Controller } = require("egg");
+const BaseController = require("./base");
 const md5 = require("md5");
-class LoginController extends Controller {
+class LoginController extends BaseController {
   //显示登陆页面
   async index() {
     // await this.ctx.render("login", { _csrf: this.ctx.csrf });
@@ -24,20 +24,14 @@ class LoginController extends Controller {
     let captchaCode = this.ctx.session.code;
  
     if (code.toUpperCase()==captchaCode.toUpperCase()) {
-        var result = await this.ctx.model.User.find(
-          { login_name: username, login_pwd: password },
-          { staff_name: 1, _id: 0 }
-        );
-        if (result.length > 0) {
-          this.ctx.session.userinfo = result[0];
-          // this.ctx.session = null;
-          // this.ctx.body = "登陆成功";
-          this.ctx.redirect("/admin")
+        var result = await this.ctx.service.login.find(username,password)
+        if (result) {
+          await this.success("/admin",'登录成功');
         } else {
-          this.ctx.body = "用户名或密码错误";
+          await this.fail("/admin/login",'用户名或密码错误');
         }
     }else{
-        this.ctx.body = "验证码输入错误！"
+      await this.fail("/admin/login","验证码输入错误！")
     }
 
 

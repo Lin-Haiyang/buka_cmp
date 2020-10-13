@@ -2,7 +2,7 @@ module.exports = app=> {
     const mongoose = app.mongoose;
     const Schema = mongoose.Schema;
 
-    const UserSchema = new Schema({
+    const StaffSchema = new Schema({
         login_name:{type:String,required:true},
         login_pwd:{type:String,required:true},
         staff_name:{type:String,required:true},
@@ -15,5 +15,5 @@ module.exports = app=> {
         last_ip:{type:String,default:''},
     });
 
-    return mongoose.model("User",UserSchema,"users")
+    return mongoose.model("Staff",StaffSchema,"staffs")
 }

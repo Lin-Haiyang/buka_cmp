@@ -1,11 +1,12 @@
 module.exports = options =>{
     return async(ctx,next) => {
         // console.log("middleware");
-        var userinfo = ctx.session.userinfo;
+        var staffinfo = ctx.session.staffinfo;
         var pathname = ctx.request.path;
         // 配置全局变量
         ctx.locals.csrf = ctx.csrf;
-        if(userinfo!=null){
+        ctx.locals.staffinfo = staffinfo;
+        if(staffinfo!=null){
             await next();
         }else{
             if( pathname == "/admin/login"|| pathname == "/admin/doLogin" || pathname == "/admin/verify"){

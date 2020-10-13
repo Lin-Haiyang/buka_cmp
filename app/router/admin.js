@@ -7,8 +7,8 @@ module.exports = app => {
     //home
     app.router.get("/admin",app.controller.admin.home.index)
 
-    //user
-    app.router.get("/user/add",app.controller.admin.user.userAdd)
-    app.router.get("/user/list",app.controller.admin.user.userList)
+    //staff
+    app.router.get("/admin/staff/add",app.controller.admin.staff.staffAdd)
+    app.router.get("/admin/staff/list",app.controller.admin.staff.staffList)
 
 }
