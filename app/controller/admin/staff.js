@@ -1,6 +1,6 @@
-const { Controller } = require("egg");
+const BaseController = require("./base");
 
-class StaffController extends Controller {
+class StaffController extends BaseController {
   //增加用户
   async staffAdd() {
     //生成一个账户
@@ -20,7 +20,7 @@ class StaffController extends Controller {
 
   //显示用户列表
   async staffList() {
-    var staff = [
+    var staffs = JSON.stringify( [
       {
         login_name: "admin1",
        
@@ -29,8 +29,8 @@ class StaffController extends Controller {
         login_name: "admin2",
        
       },
-    ];
-    await this.ctx.render("admin/stafflist", { staff });
+    ])
+    await this.ctx.render("admin/staff/stafflist", { staffs });
   }
 }
 module.exports = StaffController;

@@ -1,6 +1,6 @@
-const { Controller } = require("egg");
+const BaseController = require("./base");
  
-class LoginController extends Controller {
+class LoginController extends BaseController {
   //显示主页面
   async index() {
     //  var userinfo = this.ctx.session.userinfo;
@@ -9,8 +9,13 @@ class LoginController extends Controller {
     //  }else{
     //      this.ctx.redirect("/admin/login");
     //  }
-    await this.ctx.render("admin/home");
+    await this.ctx.render("admin/home/home");
   }
+
+    //显示weclome
+    async welcome() {
+      await this.ctx.render("admin/home/welcome");
+    }
   
 }
 module.exports = LoginController;
