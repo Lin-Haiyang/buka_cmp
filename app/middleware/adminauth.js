@@ -5,6 +5,7 @@ module.exports = options =>{
         var pathname = ctx.request.path;
         // 配置全局变量
         ctx.locals.csrf = ctx.csrf;
+        ctx.locals.lastPage = ctx.request.header.referer;
         ctx.locals.staffinfo = staffinfo;
         if(staffinfo!=null){
             await next();

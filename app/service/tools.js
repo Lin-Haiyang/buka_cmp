@@ -1,4 +1,6 @@
 const {Service} = require("egg");
+const md5 = require("md5");
+
 var svgCaptcha = require("svg-captcha");
 
 class ToolService extends Service{
@@ -14,6 +16,10 @@ class ToolService extends Service{
           });
         
         return captcha;
+    }
+
+    async md5(pwd){
+      return md5(pwd+"123");
     }
 }
 module.exports = ToolService

@@ -9,6 +9,7 @@ module.exports = app=> {
         staff_no:{type:String,default:''},
         staff_phone:{type:String,default:''},
         staff_status:{type:Number,default:1},
+        role_id:{type:Schema.Types.ObjectId,required:true},  //角色id 
         data_status:{type:Number,default:1},
         create_time:{type:String,default:''},
         last_time:{type:String,default:''},

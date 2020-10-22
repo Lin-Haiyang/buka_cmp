@@ -1,5 +1,4 @@
 const BaseController = require("./base");
-const md5 = require("md5");
 class LoginController extends BaseController {
   //显示登陆页面
   async index() {
@@ -17,7 +16,7 @@ class LoginController extends BaseController {
     // 如果session  有userinfo  直接登录
     // 入股session  跳转登录  （超时  手动退出）
     let username = this.ctx.request.body.username;
-    let password = md5(this.ctx.request.body.password);
+    let password = await this.ctx.service.tools.md5(this.ctx.request.body.password);
     let code = this.ctx.request.body.code;
 
    

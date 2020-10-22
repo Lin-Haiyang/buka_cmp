@@ -26,6 +26,17 @@ class RoleController extends BaseController {
 
   }
 
+  async delete(){
+    var _id = this.ctx.request.query._id;
+    var result = await this.ctx.service.role.deleteById(_id);
+
+    if(result){
+      await this.success(this.ctx.locals.lastPage,"删除角色成功")
+    }else{
+      await this.fail(this.ctx.locals.lastPage,"删除角色失败")
+    }
+  }
+
   //显示编辑页面
   async edit(){
     var id = this.ctx.request.query._id;

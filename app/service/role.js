@@ -12,6 +12,7 @@ class RoleService extends Service {
     }
   }
 
+
   //查询所有role
   async findAll() {
     try {
@@ -23,6 +24,7 @@ class RoleService extends Service {
       return { flag: false };
     }
   }
+
 
   //通过id查询
   async findById(_id) {
@@ -36,10 +38,22 @@ class RoleService extends Service {
     }
   }
 
+
+  //通过id删除
+  async deleteById(_id){
+    try {
+      await this.ctx.model.Role.deleteOne({_id:_id});
+      return true;
+    } catch (error) {
+      await false;
+    }
+  }
+
+
   //通过id更新数据
   async updateOne(_id, role) {
     try {
-      await this.ctx.model.Role.update({ _id: _id }, role);
+      await this.ctx.model.Role.updateOne({ _id: _id }, role);
       return true;
     } catch (error) {
       return false;

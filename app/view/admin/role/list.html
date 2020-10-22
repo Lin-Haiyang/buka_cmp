@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/public/admin/css/bootstrap.min.css" />
 
 <div class="table-responsive">
-  <table class="table table-bordered">
+  <table class="table table-striped table-bordered">
     <thead>
       <tr class="th">
         <th class="text-center">角色名称</th>
@@ -28,7 +28,7 @@
 
         <td class="text-center">
           <a href="/admin/role/edit?_id={{role._id}}">修改</a>
-          <a href="#">删除</a>
+          <a href="/admin/role/delete?_id={{role._id}}" class="text-danger" >删除</a>
         </td>
       </tr>
       {% else %}
@@ -44,7 +44,7 @@
 
         <td class="text-center">
           <a href="/admin/role/edit?_id={{role._id}}">修改</a>
-          <a href="#">删除</a>
+          <a href="/admin/role/delete?_id={{role._id}}">删除</a>
         </td>
       </tr>
       {% endif%}
