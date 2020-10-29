@@ -1,0 +1,66 @@
+<link rel='stylesheet' href="/public/admin/css/base.css">
+<link rel='stylesheet' href="/public/admin/css/bootstrap.min.css">
+<div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr class="th">
+                    <th class="text-center">权限模块</th>
+                    <th class="text-center">节点类型</th>
+                    <th class="text-center">权限操作</th>
+                    <th class="text-center">权限资源</th>
+                    <th class="text-center">数据排序</th>
+                    <th class="text-center">权限描述</th>
+                    <th class="text-center">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for module in modules%}
+                <tr>
+                    <td class="text-center">{{module.access_module}}</td>
+                    <td class="text-center">
+                        {%if module.access_type==1%}
+                        模块
+                        {% elif module.access_type==2%}
+                        菜单
+                        {% else%}
+                        操作
+                        {%endif%}
+                    </td>
+                    <td class="text-center">{{module.access_action}}</td>
+                    <td class="text-center">{{module.access_url}}</td>
+                    <td class="text-center">{{module.data_sort}}</td>
+                    <td class="text-center">{{module.access_desc}}</td>
+                    <td class="text-center">
+                        <a href="/admin/access/edit?_id={{module._id}}" class="text-success" >修改</a>
+                    </td>
+                </tr>
+                    {%for subAccess in module.subAccess%}
+                    <tr>
+                        <td class="text-center">{{subAccess.access_module}}</td>
+                        <td class="text-center">
+                            {%if subAccess.access_type==1%}
+                            模块
+                            {% elif subAccess.access_type==2%}
+                            菜单
+                            {% else%}
+                            操作
+                            {%endif%}
+                        </td>
+                        <td class="text-center">{{subAccess.access_action}}</td>
+                        <td class="text-center">{{subAccess.access_url}}</td>
+                        <td class="text-center">{{subAccess.data_sort}}</td>
+                        <td class="text-center">{{subAccess.access_desc}}</td>
+                        <td class="text-center">
+                            <a href="/admin/access/edit?_id={{subAccess._id}}" class="text-success" >修改</a>
+                            <a href="/admin/access/delete?_id={{subAccess._id}}" class="text-danger" >删除</a>
+                        </td>
+                    </tr>
+
+                    {%endfor%}
+                {%endfor%}
+
+
+
+            </tbody>
+        </table>
+</div>

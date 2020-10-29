@@ -15,11 +15,21 @@ class StaffService extends Service {
 
   //查询staff
   async find(username, password) {
-    var result = await this.ctx.model.Staff.find(
-      { login_name: username, login_pwd: password },
-      { staff_name: 1, _id: 0 }
-    );
-    return result;
+    try {
+      var result = await this.ctx.model.Staff.findOne(
+        { login_name: username, login_pwd: password },
+        { staff_name: 1,staff_status:1,role_id:1, _id: 0 }
+      );
+      if(result){
+        return {flag:true,data:result,msg:"查找成功"};
+      }else{
+        return {flag:false,msg:"查找失败"};
+      }
+    } catch (error) {
+      return {flag:false,msg:"数据异常"};
+      
+    }
+   
   }
 
   //查询所有staff

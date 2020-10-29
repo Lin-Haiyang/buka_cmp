@@ -45,7 +45,7 @@ class RoleService extends Service {
       await this.ctx.model.Role.deleteOne({_id:_id});
       return true;
     } catch (error) {
-      await false;
+      return false;
     }
   }
 

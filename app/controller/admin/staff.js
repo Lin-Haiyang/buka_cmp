@@ -60,7 +60,8 @@ class StaffController extends BaseController {
         staff_name:body.staff_name,
         staff_no:body.staff_no,
         staff_phone:body.staff_phone,
-        role_id:body.role_id
+        role_id:body.role_id,
+        staff_status:body.staff_status
       }
     }else{
       var staff={
@@ -68,7 +69,8 @@ class StaffController extends BaseController {
         staff_name:body.staff_name,
         staff_no:body.staff_no,
         staff_phone:body.staff_phone,
-        role_id:body.role_id
+        role_id:body.role_id,
+        staff_status:body.staff_status
       }
     }
 

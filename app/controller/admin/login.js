@@ -7,34 +7,19 @@ class LoginController extends BaseController {
   }
   //表单数据处理
   async doLogin() {
-    //获取数据
-    //密码加密
-    //数据验证
-    //账号 密码进行数据库查询
-    // 没有 提示用户或密码错误
-    // 登录成功 存储session
-    // 如果session  有userinfo  直接登录
-    // 入股session  跳转登录  （超时  手动退出）
     let username = this.ctx.request.body.username;
-    let password = await this.ctx.service.tools.md5(this.ctx.request.body.password);
+    let password = await this.ctx.service.tools.md5(
+      this.ctx.request.body.password
+    );
     let code = this.ctx.request.body.code;
 
-   
-    let captchaCode = this.ctx.session.code;
- 
-    if (code.toUpperCase()==captchaCode.toUpperCase()) {
-        var result = await this.ctx.service.login.find(username,password)
-        if (result) {
-          await this.success("/admin",'登录成功');
-        } else {
-          await this.fail("/admin/login",'用户名或密码错误');
-        }
-    }else{
-      await this.fail("/admin/login","验证码输入错误！")
+    var result = await this.ctx.service.login.find(username, password, code);
+
+    if (result.flag) {
+      await this.success("/admin", result.msg);
+    } else {
+      await this.fail("/admin/login", result.msg);
     }
-
-
-
   }
 
   //验证码
@@ -48,9 +33,9 @@ class LoginController extends BaseController {
 
   //退出登录
 
-    async logout(){
-      this.ctx.session = null;
-      this.ctx.redirect("/admin/login");
+  async logout() {
+    this.ctx.session = null;
+    this.ctx.redirect("/admin/login");
   }
 }
 module.exports = LoginController;

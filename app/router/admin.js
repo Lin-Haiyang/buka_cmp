@@ -25,4 +25,16 @@ module.exports = app => {
     router.get("/admin/role/delete",controller.admin.role.delete)
     router.post("/admin/role/doEdit",controller.admin.role.doEdit)
 
+    //access(权限)
+    router.get("/admin/access/add",controller.admin.access.add)
+    router.post("/admin/access/doAdd",controller.admin.access.doAdd)
+    router.get("/admin/access/list",controller.admin.access.list)
+    router.get("/admin/access/edit",controller.admin.access.edit)
+    router.post("/admin/access/doEdit",controller.admin.access.doEdit)
+    router.get("/admin/access/delete",controller.admin.access.delete)
+
+
+
+
+
 }
