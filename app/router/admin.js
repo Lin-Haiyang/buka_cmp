@@ -10,7 +10,7 @@ module.exports = app => {
     router.get("/admin/welcome",controller.admin.home.welcome)
 
     //staff
-    router.get("/admin/staff/showAdd",controller.admin.staff.showAdd)
+    router.get("/admin/staff/add",controller.admin.staff.add)
     router.post("/admin/staff/doAdd",controller.admin.staff.doAdd)
     router.get("/admin/staff/list",controller.admin.staff.staffList)
     router.get("/admin/staff/edit",controller.admin.staff.edit)
@@ -22,6 +22,8 @@ module.exports = app => {
     router.post("/admin/role/doAdd",controller.admin.role.roleAdd)
     router.get("/admin/role/list",controller.admin.role.roleList)
     router.get("/admin/role/edit",controller.admin.role.edit)
+    router.get("/admin/role/auth",controller.admin.role.auth)
+    router.post("/admin/role/doAuth",controller.admin.role.doAuth)
     router.get("/admin/role/delete",controller.admin.role.delete)
     router.post("/admin/role/doEdit",controller.admin.role.doEdit)
 

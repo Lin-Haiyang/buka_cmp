@@ -56,6 +56,65 @@ class AccessService extends Service {
     }
   }
 
+  //依据角色id查找权限（中间表）
+  async findRoleId(role_id) {
+    try {
+      var roleAccess = await this.ctx.model.RoleAccess.find({
+        role_id: role_id,
+      });
+      return {
+        flag: true,
+        data: roleAccess,
+        msg: "依据角色id查询权限成功",
+      };
+    } catch (error) {
+      return { flag: false, msg: "依据角色id查询权限失败" };
+    }
+  }
+
+
+  //依据角色id查找被选中的权限
+  async findAllWithRoleId(role_id){
+    var result1 =await this.findAll();
+    var result2 =await this.findRoleId(role_id);
+    if(result1.flag&&result2.flag){
+      var accessArray = result1.data;
+      var roleAccessArray = result2.data;
+      var accessChecked = [];
+      roleAccessArray.forEach(element => {
+        accessChecked.push(element.access_id.toString());
+      });
+      for (const module of accessArray) {
+        if(accessChecked.indexOf(module._id.toString())!==-1){
+          module.checked = true;
+        }
+        for (const access of module.subAccess) {
+          if(accessChecked.indexOf(access._id.toString())!==-1){
+            access.checked = true;
+          } 
+        }
+      }
+      
+      return {flag:true,data:accessArray,msg:"查询所有和已选中权限成功"}
+    }else{
+      return {flag:false,msg:"查询所有和已选中权限失败"}
+      
+    }
+
+  }
+
+
+  //批量插入RoleAccess数据(插入前现根据角色id删除)
+  async insertManyRoleAccess(role_id,insertRoleAccess){
+    try {
+      await this.ctx.model.RoleAccess.deleteMany({role_id:role_id})
+      await this.ctx.model.RoleAccess.insertMany(insertRoleAccess)
+      return {flag:true,msg:"权限添加成功"}
+    } catch (error) {
+      return {flag:false,msg:"数据异常，权限添失败"}
+      
+    }
+  }
   //依据_id查询权限
   async findById(_id) {
     try {
@@ -82,9 +141,9 @@ class AccessService extends Service {
   async deleteById(_id) {
     try {
       await this.ctx.model.Access.deleteOne({ _id: _id });
-      return {flag:true,msg:"删除权限成功"};
+      return { flag: true, msg: "删除权限成功" };
     } catch (error) {
-      return {flag:false,msg:"数据异常，删除权限失败"};
+      return { flag: false, msg: "数据异常，删除权限失败" };
     }
   }
 }

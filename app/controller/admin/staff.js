@@ -2,7 +2,7 @@ const BaseController = require("./base");
 
 class StaffController extends BaseController {
   //展示增加页面
-  async showAdd() {
+  async add() {
     var objcect = await this.ctx.service.role.findAll();
     if (objcect.flag) {
       var roles = objcect.data;
