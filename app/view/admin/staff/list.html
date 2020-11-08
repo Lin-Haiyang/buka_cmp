@@ -20,7 +20,13 @@
                         <td class="text-center">{{staff.staff_name}}</td>
                         <td class="text-center">{{staff.staff_no}}</td>
                         <td class="text-center">{{staff.staff_phone}}</td>
-                        <td class="text-center">{{staff.role[0].role_name}}</td>                      
+                        <td class="text-center">
+                            {%if staff.is_super==1%}
+                            超级管理员
+                            {%else%}
+                            {{staff.role[0].role_name}}
+                            {%endif%}
+                        </td>                      
                         {% if staff.staff_status==1 %}
                         <td class="text-center text-success">正常</td>
                         {% else %}

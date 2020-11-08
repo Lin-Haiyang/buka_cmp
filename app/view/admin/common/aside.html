@@ -1,12 +1,12 @@
 <ul class='aside-ul'>    
     {% for module in authList %}
     <li>
-        {% if module.access_type==1 and module.checked%}
+        {%if (module.access_type==1 and module.checked) or (staffinfo.is_super==1 and module.access_type==1 )%}
             <h4>{{module.access_module}}</h4>
         {%endif%}
         <ul class="text-center">
             {% for access in module.subAccess%}
-                {% if access.access_type==2 and access.checked%}
+                {% if (access.access_type==2 and access.checked) or (staffinfo.is_super==1 and access.access_type==2)%}
                 <li  class="list-group-item"> 
                     <a href="{{access.access_url}}" target="rightIfram"> 
                         {{access.access_action}}

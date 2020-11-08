@@ -8,15 +8,21 @@ module.exports = (options) => {
     ctx.locals.lastPage = ctx.request.header.referer;
     ctx.locals.staffinfo = staffinfo;
     if (staffinfo != null) {
-      var result = await ctx.service.access.findAllWithRoleId(
-        staffinfo.role_id
-      );
-      if (result.flag) {
-        ctx.locals.authList = result.data;
-        await next();
-      } else {
-        ctx.redirect("/admin/login");
+      var authResult = await ctx.service.staff.checkAuth(staffinfo.role_id,pathname);
+      if(authResult.flag){
+          var result = await ctx.service.access.findAllWithRoleId(
+            staffinfo.role_id
+          );
+          if (result.flag) {
+            ctx.locals.authList = result.data;
+            await next();
+          } else {
+            ctx.redirect("/admin/login");
+          }
+      }else{
+          ctx.body = authResult.msg;
       }
+   
     } else {
       if (
         pathname == "/admin/login" ||

@@ -72,6 +72,22 @@ class AccessService extends Service {
     }
   }
 
+  //通过url查询权限
+  async findByUrl(access_url){
+    try {
+      var access = await this.ctx.model.Access.findOne({
+        access_url: access_url,
+      });
+      return {
+        flag: true,
+        data: access,
+        msg: "依据url查询权限成功",
+      };
+    } catch (error) {
+      return { flag: false, msg: "依据url查询权限成功" };
+    }
+  }
+
 
   //依据角色id查找被选中的权限
   async findAllWithRoleId(role_id){

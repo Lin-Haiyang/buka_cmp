@@ -10,6 +10,7 @@ module.exports = app=> {
         staff_phone:{type:String,default:''},
         staff_status:{type:Number,default:1},
         role_id:{type:Schema.Types.ObjectId,required:true},  //角色id 
+        is_super:{type:Number,default:0},//1 超级管理管员  0 不是超级管理员
         data_status:{type:Number,default:1},
         create_time:{type:String,default:''},
         last_time:{type:String,default:''},

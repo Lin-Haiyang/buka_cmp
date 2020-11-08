@@ -18,7 +18,7 @@ class StaffService extends Service {
     try {
       var result = await this.ctx.model.Staff.findOne(
         { login_name: username, login_pwd: password },
-        { staff_name: 1,staff_status:1,role_id:1, _id: 0 }
+        { staff_name: 1,staff_status:1,role_id:1,is_super:1, _id: 0 }
       );
       if(result){
         return {flag:true,data:result,msg:"查找成功"};
@@ -91,6 +91,35 @@ class StaffService extends Service {
     } catch (error) {
       await false;
     }
+  }
+
+  //检查当前用户的访问权限
+  async checkAuth(role_id,path){
+
+    var ignoreUrls = ["/admin/login","/admin/doLogin","/admin/verify",
+    "/admin/logout","/admin","/admin/welcome"];
+    var is_super = this.ctx.locals.staffinfo.is_super;
+    if(ignoreUrls.indexOf(path)!=-1 || is_super==1){
+      return {flag:true,msg:"拥有访问权限"}
+    }
+    var result1 = await this.ctx.service.access.findRoleId(role_id);
+    var result2 = await this.ctx.service.access.findByUrl(path);
+    if(result1.flag&&result2.flag){
+        var accessArray = result1.data;
+        var access = result2.data;
+        var accessAll = [];
+        accessArray.forEach(element => {
+          accessAll.push(element.access_id.toString());
+        });
+        if(accessAll.indexOf(access._id.toString())!=-1){
+          return {flag:true,msg:"拥有访问权限"}
+        }else{
+          return {flag:false,msg:"没有访问权限"}
+        }
+    }else{
+      return {flag:false,msg:"数据异常，访问权限检查失败！"}
+    }
+
   }
 }
 module.exports = StaffService;
